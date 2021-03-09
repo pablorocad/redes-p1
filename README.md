@@ -42,7 +42,7 @@ Se utilizaron 2 maquinas físicas conectadas por medio de un VPN para poder enla
 * Topología 1 - Clientes
 
 * Topología 2 - Servidores
-![alt text](https://https://github.com/pablorocad/redes-p1/blob/main/img/Topologia2.jpg)
+![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/Topologia2.JPG)
 
 
 ### Tabla de hosts y sus direcciones IP
