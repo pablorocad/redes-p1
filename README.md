@@ -18,11 +18,15 @@ ningún otro departamento solamente con host de su mismo departamento.
 >   * [Herramientas utilizadas](#Herramientas-utilizadas)
 >   * [Diseño de topología](#Diseño-de-topología)
 >   * [Tabla de hosts y sus direcciones IP](#Tabla-de-hosts-y-sus-direcciones-IP)
+>   * [Procedimiento](#Procedimiento)
+>      * [Creación de VPN en Google Cloud](#Creación-de-VPN-en-Google-Cloud)
+>      * [Configuración de topología 1](#Configuración-de-topología-1)
+>      * [Configuración de topología 2](#Configuración-de-topología-2)
+>      * [Configuración del server](#Configuración-del-server)
 > * [Integrantes Grupo 4](#Integrantes-Grupo-4)
 
 ---
 ## Manual de construcción y configuración
-
 
 ### Herramientas utilizadas
 
@@ -34,6 +38,7 @@ Para el desarrolló de dicha práctica se utilizaron varias herramientas, entre 
 * OpenVPNConnect
 * Google Cloud
     * VPN 
+* Apache2
 
 ### Diseño de topología
 
@@ -66,6 +71,99 @@ Se utilizaron 2 maquinas físicas conectadas por medio de un VPN para poder enla
     | Si | Server Ventas | SW3 | 192.168.24.150 |
     | Si | Server Contabilidad | SW1 | 192.168.4.150 |
 
+### Procedimiento
+
+#### Creación de VPN en Google Cloud
+
+#### Configuración de topología 1
+
+#### Configuración de topología 2
+
+#### Configuración del server
+Se utilizó Apache2 para poder crear un servidor en las maquinas Ubuntu.
+
+1. Primero debemos actualizar los repositorios que definimos en el archivo /etc/apt/sources:
+
+    ```
+    sudo apt-get update
+    ```
+
+2. Ahora instalamos el paquete apache2:
+
+    ```
+    sudo apt-get install apache2
+    ```
+
+3. Podemos ver el perfil de aplicación dentro de ufw con el comando:
+
+    ```
+    sudo ufw app list
+    ```
+
+    Debe mostrar una salida como la siguiente:
+
+    ```
+    Available applications:
+        Apache
+        Apache Full
+        Apache Secure
+        Curl
+    ```
+
+4. Permitiremos el tráfico a través del puerto 80 con el siguiente comando:
+
+    ```
+    sudo ufw allow 'Apache'
+    ```
+
+5. Podemos verificar que ha sido correcto el comando ingresando:
+
+    ```
+    sudo ufw status
+    ```
+
+6. Debe retornar que el tráfico HTTP se encuentra permitido:
+
+    ```
+    Status: active
+
+    To                         Action      From
+    --                         ------      ----
+    OpenSSH                    ALLOW       Anywhere                  
+    Apache                     ALLOW       Anywhere                  
+    OpenSSH (v6)               ALLOW       Anywhere (v6)             
+    Apache (v6)                ALLOW       Anywhere (v6)
+    ```
+
+7. Puedes verificar el estado del servidor de Apache con el siguiente comando:
+
+    ```
+    sudo systemctl status apache2
+    ```
+
+    Dicho comando tiene una respuesta como la siguiente:
+
+    ```
+    ● apache2.service - The Apache HTTP Server
+    Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
+    Drop-In: /lib/systemd/system/apache2.service.d
+           └─apache2-systemd.conf
+    Active: active (running) since Tue 2018-04-24 20:14:39 UTC; 9min ago
+    Main PID: 2583 (apache2)
+    Tasks: 55 (limit: 1153)
+    CGroup: /system.slice/apache2.service
+           ├─2583 /usr/sbin/apache2 -k start
+           ├─585 /usr/sbin/apache2 -k start
+           └─2586 /usr/sbin/apache2 -k start
+    ```
+
+    Donde podemos ver que el estado del servidor de apache se encuentra corriendo.
+
+8. Si ingresamos a la dirección IP desde un navegador web, en una computadora del lado del cliente. Podemos observar que efectivamente el servidor de apache se está ejecutando correctamente.
+
+    ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/apache.png)
+
+    Podemos dirigirnos a la carpeta ``` /var/www/html ``` para poder ver la página que se muestra en nuestro servidor.
 
 ---
 ## Integrantes Grupo 4
