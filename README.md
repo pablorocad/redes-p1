@@ -47,6 +47,7 @@ Se utilizaron 2 maquinas físicas conectadas por medio de un VPN para poder enla
 * Topología 1 - Clientes
 
 * Topología 2 - Servidores
+
 ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/Topologia2.JPG)
 
 
@@ -106,7 +107,65 @@ Para la creacion de una VPN en GCP (Google Cloud Platform) debemos seguir los si
 
 #### Configuración de topología 2
 
+Como se pudo observar en el diagrama de la topología 2, se utilizaron 3 maquinas virtuales, con el sistema virtual Ubuntu 16.04.
+
+1. Cambiar la IP de la maquina virtual de Ubuntu.
+
+    1.1 Abrir la ventana de configuración de Red.
+
+    ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/Configuracion_Red1.JPG)
+
+    1.2 Seleccionar la configuración de la red cableada, ajustes de IPV4. 
+
+    ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/ManualUbuntu.JPG)
+
+    1.3 Seleccionar el método Manual y agregar la dirección dependiendo la maquina que se está configurando. Con los siguientes datos:
+
+    | Servidor | Dirección | Máscara de Red | Puerta de Enlace | 
+    | :---: | :---: | :---: | :---: | 
+    | Informática | 192.168.14.150 | 24 | 192.168.14.1 |
+    | Ventas | 192.168.24.150 | 24 | 192.168.24.1 |
+    | Contabilidad | 192.168.4.150 | 24 | 192.168.4.1 |
+
+2. Configurar la Cloud en GNS3
+
+    2.1 Ingresar a la configuración de Cloud, ir a la pestaña ``` UDP tunnels ``` y agregar una nueva configuración con los siguientes datos:
+
+    | Local port | Remote host | Remote port | 
+    | :---: | :---: | :---: | 
+    | 30000 | 10.8.0.2 | 20000 |
+
+    ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/CloudUbuntu.JPG)
+
+3. Configuración de switchs
+
+    3.1 Los diferentes switchs se deben configurar de la siguiente manera, para poder manejar la conexión truncal y las vlans.
+
+    #### Switch 1
+
+    | Port | VLAN | type | 
+    | :---: | :---: | :---: | 
+    | 0 | 1 | dot1q |
+    | 1 | 34 | access |
+    | 2 | 14 | access |
+
+    #### Switch 2
+
+    | Port | VLAN | type | 
+    | :---: | :---: | :---: | 
+    | 0 | 1 | dot1q |
+    | 1 | 1 | dot1q |
+    | 2 | 1 | dot1q |
+
+    #### Switch 3
+
+    | Port | VLAN | type | 
+    | :---: | :---: | :---: | 
+    | 0 | 1 | dot1q |
+    | 1 | 24 | access |
+
 #### Configuración del server
+
 Se utilizó Apache2 para poder crear un servidor en las maquinas Ubuntu.
 
 1. Primero debemos actualizar los repositorios que definimos en el archivo /etc/apt/sources:
