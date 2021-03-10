@@ -74,6 +74,33 @@ Se utilizaron 2 maquinas físicas conectadas por medio de un VPN para poder enla
 ### Procedimiento
 
 #### Creación de VPN en Google Cloud
+Para la creacion de una VPN en GCP (Google Cloud Platform) debemos seguir los siguientes pasos:
+  1. Crear una instancia de 2 GB de RAM con 10 GB de memoria
+  2. Configurar la instalación de Ubuntu 20.04 en la nueva instancia
+  3. Abrir el puerto 1194 con el protocolo 'udp'
+  4. Acceder a la instancia mediante el protocolo SSH
+  5. Ahora debemos actualizar los paquetes del SO:
+        ```
+        sudo apt-get update
+        ```
+  6. Instalar OpenVPN dentro de la maquina con el siguiente comando:
+        ```
+        sudo wget https://cubaelectronica.com/OpenVPN/openvpn-install && sudo bash openvpn-install.sh
+        ```
+  7. Nos pedira configurar nuestra VPN de la siguiente manera:
+      - IP address: [IP interna] //verificar que sea nuestra IP interna
+      - Direccion IP pública: [IP publica] //Colocar IP publica de la instancia
+      - Procoloto: UDP
+      - Puerto: 1194
+      - DNS: Google
+      - Cliente: nombreCliente1
+  
+  8. Esperamos que se instale el programa
+  9. Nos muestra que ha creado un cliente y que se encuentra en la ruta /home/nombreCliente1.ovpn
+  10. Descargamos el archivo en esa ruta
+  11. Descargar e instalamos OpenVPN connect en nuestra maquina fisica
+  12. Subimos nuestro archivo .ovpn a OpenVPN connect
+  13. Nos conectamos a la VPN
 
 #### Configuración de topología 1
 
