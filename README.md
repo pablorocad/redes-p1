@@ -46,6 +46,8 @@ Se utilizaron 2 maquinas físicas conectadas por medio de un VPN para poder enla
 
 * Topología 1 - Clientes
 
+  ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/Topologia1.PNG)
+
 * Topología 2 - Servidores
 
 ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/Topologia2.JPG)
@@ -105,6 +107,105 @@ Para la creacion de una VPN en GCP (Google Cloud Platform) debemos seguir los si
 
 #### Configuración de topología 1
 
+Se utilizaron tres maquinas virtuales, tres VPCS, cuatro switches y un cloud.
+
+Para la configuración de cada maquina virtual se realizo el mismo procedimiento como se puede observar en la imagen, esto se realizo en virual box.
+
+![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/ConfigracionVM.PNG)
+
+Se configuro de esta manera en GNS3 cada maquina virtual
+
+![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/configuracionGN.PNG)
+
+En cada maquina virtual se utilizo Windows XP
+
+1. Cambiar la IP de la maquina virtual de Windows XP.
+
+   1.1 Presionar el botón de inicio y después presionar el panel de control.
+
+   ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/ConfigurarXP1.PNG)
+
+   1.2 Presionar en conexiones de red e internet. 
+
+   ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/configuracionXP2.PNG)
+
+   1.3 Presionar en conexiones de red.
+
+   ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/configurarXP3.PNG)
+
+   1.4 Presionar en sobre la conexión que este activa.
+
+   ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/configurarXP4.PNG)
+
+   1.5 Presionar en propiedades, después en protocolo internet (TCP/IP) y se agrega la direccion IP, la mascara de red, y la puerta de enlace predeterminado.
+
+   ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/configuracionXP5.PNG)
+
+   Se agregaron los siguientes datos a cada maquina virtual.
+
+   |   Servidor   |   Dirección   | Máscara de Red | Puerta de Enlace |
+   | :----------: | :-----------: | :------------: | :--------------: |
+   | Informática  | 192.168.14.15 |       24       |   192.168.14.1   |
+   |    Ventas    | 192.168.24.15 |       24       |   192.168.24.1   |
+   | Contabilidad | 192.168.4.30  |       24       |   192.168.4.1    |
+
+2. Configurar la Cloud en GNS3
+
+   2.1 Ingresar a la configuración de Cloud, ir a la pestaña ``` UDP tunnels ``` y agregar una nueva configuración con los siguientes datos:
+
+   | Local port | Remote host | Remote port |
+   | :--------: | :---------: | :---------: |
+   |   20000    |  10.8.0.2   |    30000    |
+
+   ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/configuracionNubeCliente.PNG)
+
+3. Configuración de switchs
+
+   3.1 Los diferentes switchs se deben configurar de la siguiente manera, para poder manejar la conexión truncal y las vlans.
+
+   #### Switch 1
+
+   | Port | VLAN |  type  |
+   | :--: | :--: | :----: |
+   |  0   |  1   | dot1q  |
+   |  1   |  1   | dot1q  |
+   |  2   |  14  | access |
+   |  3   |  34  | access |
+
+   #### Switch 2
+
+   | Port | VLAN | type  |
+   | :--: | :--: | :---: |
+   |  0   |  1   | dot1q |
+   |  1   |  1   | dot1q |
+   |  2   |  1   | dot1q |
+
+   #### Switch 3
+
+   | Port | VLAN |  type  |
+   | :--: | :--: | :----: |
+   |  0   |  1   | dot1q  |
+   |  1   |  24  | access |
+   |  2   |  14  | access |
+
+   #### Switch 4
+
+   | Port | VLAN |  type  |
+   | :--: | :--: | :----: |
+   |  0   |  1   | dot1q  |
+   |  1   |  34  | access |
+   |  2   |  24  | access |
+
+4. Configuración de las VPCS
+
+   ​	4.1 Para eso se utilizaron los siguientes datos
+
+   |   Servidor   |   Dirección   | Máscara de Red | Puerta de Enlace |
+   | :----------: | :-----------: | :------------: | :--------------: |
+   | Informática  | 192.168.14.30 |       24       |   192.168.14.1   |
+   |    Ventas    | 192.168.24.30 |       24       |   192.168.24.1   |
+   | Contabilidad | 192.168.4.15  |       24       |   192.168.4.1    |
+
 #### Configuración de topología 2
 
 Como se pudo observar en el diagrama de la topología 2, se utilizaron 3 maquinas virtuales, con el sistema virtual Ubuntu 16.04.
@@ -121,8 +222,8 @@ Como se pudo observar en el diagrama de la topología 2, se utilizaron 3 maquina
 
     1.3 Seleccionar el método Manual y agregar la dirección dependiendo la maquina que se está configurando. Con los siguientes datos:
 
-    | Servidor | Dirección | Máscara de Red | Puerta de Enlace | 
-    | :---: | :---: | :---: | :---: | 
+    | Servidor | Dirección | Máscara de Red | Puerta de Enlace |
+    | :---: | :---: | :---: | :---: |
     | Informática | 192.168.14.150 | 24 | 192.168.14.1 |
     | Ventas | 192.168.24.150 | 24 | 192.168.24.1 |
     | Contabilidad | 192.168.4.150 | 24 | 192.168.4.1 |
@@ -131,8 +232,8 @@ Como se pudo observar en el diagrama de la topología 2, se utilizaron 3 maquina
 
     2.1 Ingresar a la configuración de Cloud, ir a la pestaña ``` UDP tunnels ``` y agregar una nueva configuración con los siguientes datos:
 
-    | Local port | Remote host | Remote port | 
-    | :---: | :---: | :---: | 
+    | Local port | Remote host | Remote port |
+    | :---: | :---: | :---: |
     | 30000 | 10.8.0.2 | 20000 |
 
     ![alt text](https://github.com/pablorocad/redes-p1/blob/master/img/CloudUbuntu.JPG)
@@ -143,24 +244,24 @@ Como se pudo observar en el diagrama de la topología 2, se utilizaron 3 maquina
 
     #### Switch 1
 
-    | Port | VLAN | type | 
-    | :---: | :---: | :---: | 
+    | Port | VLAN | type |
+    | :---: | :---: | :---: |
     | 0 | 1 | dot1q |
     | 1 | 34 | access |
     | 2 | 14 | access |
 
     #### Switch 2
 
-    | Port | VLAN | type | 
-    | :---: | :---: | :---: | 
+    | Port | VLAN | type |
+    | :---: | :---: | :---: |
     | 0 | 1 | dot1q |
     | 1 | 1 | dot1q |
     | 2 | 1 | dot1q |
 
     #### Switch 3
 
-    | Port | VLAN | type | 
-    | :---: | :---: | :---: | 
+    | Port | VLAN | type |
+    | :---: | :---: | :---: |
     | 0 | 1 | dot1q |
     | 1 | 24 | access |
 
@@ -259,6 +360,6 @@ Se utilizó Apache2 para poder crear un servidor en las maquinas Ubuntu.
 | Luis Gerardo Chay Grijalva | 201700345 |
 | Pablo Andrés Roca Dominguez | 201700584 |
 | Fredy Estuadro Ramirez Moscoso | 201700350 |
-| Luis Fernando Arana Arias | 201700988 | 
+| Luis Fernando Arana Arias | 201700988 |
 
 
