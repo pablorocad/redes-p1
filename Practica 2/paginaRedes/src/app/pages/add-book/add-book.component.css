@@ -1,0 +1,30 @@
+   /* Hide the file input using
+  opacity */
+  [type=file] {
+    position: absolute;
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+input,
+[type=file] + label {
+  text-align: left;
+  position: relative;
+}
+[type=file] + label {
+  text-align: center;
+  /* Decorative */
+  background: #1658CB;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+[type=file] + label:hover {
+  color: #fff;
+  background-color: #3e7be4;
+  border-color: #3e7be4;
+}
+
+.image-icon {
+  height: 60%;
+  width: 60%;
+}

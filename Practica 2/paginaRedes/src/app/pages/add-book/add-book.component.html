@@ -4,6 +4,80 @@
 
     <app-navbar></app-navbar>
 
+      <div class="bg-light py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 mb-0"><a href="index.html">Sale en Vacas</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Agregar libro</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-section center">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="h3 mb-3 text-black">Pon un libro a la venta</h2>
+            </div>
+            <div class="col-md-7">
+
+              <div action="#" method="post">
+
+                <div class="p-3 p-lg-5 border">
+
+                  <div class="form-group row">
+                    <div class="col-md-12">
+                      <label for="c_email" class="text-black">Nombre del libro <span class="text-danger">*</span></label>
+                      <input type="email" placeholder="Nombre del libro" class="form-control" id="c_email" name="c_email">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="c_fname" class="text-black">Cantidad Stock <span class="text-danger">*</span></label>
+                      <input type="text" placeholder="Cantidad stock" class="form-control" id="c_fname" name="c_fname">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="c_lname" class="text-black">Precio Unitario <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" placeholder="Precio" id="c_lname" name="c_lname">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-md-12">
+                      <label for="c_message" class="text-black">Descripción </label>
+                      <textarea placeholder="Descripción del libro" name="c_message" id="c_message" cols="30" rows="7" class="form-control"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Cargar Libro">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+            <div class="col-md-5 ml-auto">
+              <div class="p-4 border mb-3">
+                <span class="d-block text-primary h6 text-uppercase">Imágen cargada</span>
+                <div class="text-center">
+                  <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                      src="https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg" alt="">
+              </div>
+              <div class="form-group">
+                <input id="f02" type="file" class="btn btn-primary btn-user btn-block" placeholder="Add profile picture" />
+                <label for="f02" class="btn btn-primary btn-user btn-block" >Sube una fotografía</label>
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <app-footer></app-footer>
 
   </div>
